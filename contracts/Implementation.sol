@@ -22,6 +22,8 @@ contract Implementation {
      */
     function increment() public {
         require(msg.sender == executor, "only executor can call this function");
-        counter ++;
+        unchecked{
+            counter ++;
+        }
     }
 }
