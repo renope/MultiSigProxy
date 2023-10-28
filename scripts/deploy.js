@@ -4,25 +4,16 @@ const { verify } = require("./utils/verifier.js")
   async function deployExecutor() {
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
-  const members = ["0x5B38Da6a701c568545dCfcB03FcB875f56beddC4", "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2", "0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db"]
+  const members = ["0x253820F7dEb8c9489735BF35232752e9EBE5c855", "0xda55BF0B8Ba3Da33c26A50ACB48A299F0C0a6DFF", "0xc92a7Cf349dD3897c23BbB2BF8150A30d9EbaD58"]
   const quorum = 2
 
-    // deploy
-    const Executor = await ethers.getContractFactory("Executor");
-    const executor = await Executor.deploy(members, quorum);
-    await executor.deployed();
-    console.log("Executor Contract Address:", executor.address); 
+  // let MultiSigWallet = await ethers.getContractFactory("MultiSigWallet");
+  // multiSig = await MultiSigWallet.deploy(members, quorum);
+  // console.log("MultiSigWallet address : ", multiSig.address)
 
-    const implAddr = await executor.implementation()
-    console.log("Implementation Address:", implAddr)
-
-    // verify executor
-    await delay(5000)
-    await verify(executor.address, [members, quorum])
-
-    // verify implementation
-    await delay(5000)
-    await verify(implAddr, [executor.address])
+  //   // verify executor
+  //   await delay(5000)
+    await verify("0x1E9D6d37797e667E35401c80Bbc6b0F954A8BeCB", [members, quorum])
   }
     
   deployExecutor();

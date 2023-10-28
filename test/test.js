@@ -45,35 +45,35 @@ describe('Multisig MultiSigWallet test', async function () {
     it('should submit transaction', async () => {
         
         await multiSig.connect(user1).submitTransaction(impl.address, 0, txData)
-        // await multiSig.connect(user2).submitTransaction(impl.address, 0, txData)
+        await multiSig.connect(user2).submitTransaction(impl.address, 0, txData)
         // await multiSig.connect(user3).submitTransaction(impl.address, 0, txData)
         console.log("transactions count : ", await multiSig.getTransactionCount(true, false));
     })
 
     it('should accept members vote', async () => {
         await multiSig.connect(user2).confirmTransaction(0)
-        // console.log("tx 0 confirmitions: ", await multiSig.getConfirmationCount(0))
+    //     // console.log("tx 0 confirmitions: ", await multiSig.getConfirmationCount(0))
 
-        console.log("implementation counter : ", await impl.counter())
-        await multiSig.connect(user3).confirmTransaction(0)
-        console.log("implementation counter : ", await impl.counter())
+    //     console.log("implementation counter : ", await impl.counter())
+    //     await multiSig.connect(user3).confirmTransaction(0)
+    //     console.log("implementation counter : ", await impl.counter())
 
 
-        await multiSig.connect(user4).confirmTransaction(0)
-        // console.log("tx 0 confirmitions: ", await multiSig.getConfirmationCount(0))
-        // console.log("transactions count : ", await multiSig.getTransactionCount(false, true));
+    //     await multiSig.connect(user4).confirmTransaction(0)
+    //     // console.log("tx 0 confirmitions: ", await multiSig.getConfirmationCount(0))
+    //     // console.log("transactions count : ", await multiSig.getTransactionCount(false, true));
     })
     
     it('should execute transaction', async () => {
-        // console.log("tx 0 confirmitions: ", await multiSig.getConfirmationCount(0))
-        // console.log("tx 0 isConfirmed: ", await multiSig.isConfirmed(0))
-        // console.log("implementation counter : ", await impl.counter())
-        // await multiSig.connect(user3).executeTransaction(0)
-    //     await multiSig.connect(user9).executeTransaction(0)
-    //     // await multiSig.connect(user9).executeTransaction(0)
-    //     // await multiSig.connect(user9).executeTransaction(0)
-        // console.log("implementation counter : ", await impl.counter())
-        // console.log("transactions count : ", await multiSig.getTransactionCount(false, true));
+    //     // console.log("tx 0 confirmitions: ", await multiSig.getConfirmationCount(0))
+    //     // console.log("tx 0 isConfirmed: ", await multiSig.isConfirmed(0))
+    //     // console.log("implementation counter : ", await impl.counter())
+    //     // await multiSig.connect(user3).executeTransaction(0)
+    // //     await multiSig.connect(user9).executeTransaction(0)
+    // //     // await multiSig.connect(user9).executeTransaction(0)
+    // //     // await multiSig.connect(user9).executeTransaction(0)
+        console.log("implementation counter : ", await impl.counter())
+    //     // console.log("transactions count : ", await multiSig.getTransactionCount(false, true));
     })
     
     // it('under quorum votes should not call the implementation', async () => {

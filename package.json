@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@openzeppelin/contracts": "^5.0.0"
+  },
+  "devDependencies": {
+    "hardhat": "^2.18.3"
+  },
+  "name": "multisigexecutor",
+  "version": "1.0.0",
+  "main": "hardhat.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renope/MultiSigProxy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renope/MultiSigProxy/issues"
+  },
+  "homepage": "https://github.com/renope/MultiSigProxy#readme",
+  "description": ""
+}

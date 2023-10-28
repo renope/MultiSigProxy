@@ -1,15 +1,17 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
 /// @author Stefan George - <stefan.george@consensys.net>
-contract MultiSigWallet {
+contract MultiSigWallet is ERC721Holder {
 
     uint constant public MAX_OWNER_COUNT = 50;
 
     event Confirmation(address indexed sender, uint indexed transactionId);
     event Revocation(address indexed sender, uint indexed transactionId);
-    event Submission(uint indexed transactionId);
+    event Submission(uint indexed transactionId, string note);
     event Execution(uint indexed transactionId);
     event ExecutionFailure(uint indexed transactionId);
     event Deposit(address indexed sender, uint value);
@@ -29,6 +31,7 @@ contract MultiSigWallet {
         uint value;
         bytes data;
         bool executed;
+        string note;
     }
 
     modifier onlyWallet() {
@@ -182,11 +185,11 @@ contract MultiSigWallet {
     /// @param value Transaction ether value.
     /// @param data Transaction data payload.
     /// @return transactionId Returns transaction ID.
-    function submitTransaction(address destination, uint value, bytes memory data)
+    function submitTransaction(address destination, uint value, bytes memory data, string memory note)
         public
         returns (uint transactionId)
     {
-        transactionId = addTransaction(destination, value, data);
+        transactionId = addTransaction(destination, value, data, note);
         confirmTransaction(transactionId);
     }
 
@@ -259,7 +262,7 @@ contract MultiSigWallet {
     /// @param value Transaction ether value.
     /// @param data Transaction data payload.
     /// @return transactionId Returns transaction ID.
-    function addTransaction(address destination, uint value, bytes memory data)
+    function addTransaction(address destination, uint value, bytes memory data, string memory note)
         internal
         notNull(destination)
         returns (uint transactionId)
@@ -269,10 +272,11 @@ contract MultiSigWallet {
             destination: destination,
             value: value,
             data: data,
-            executed: false
+            executed: false,
+            note: note
         });
         transactionCount += 1;
-        emit Submission(transactionId);
+        emit Submission(transactionId, note);
     }
 
     /*
